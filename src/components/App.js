@@ -32,10 +32,23 @@ class App extends Component {
     const networkData = Marketplace.networks[networkId]
     if (networkData) {
       const marketplace = web3.eth.Contract(Marketplace.abi, networkData.address)
-      console.log(marketplace)
+      this.setState({ marketplace })
+      const productCount = await marketplace.methods.productCount().call()
+      console.log(productCount.toString())
+      this.setState({ loading: false })
     } else {
       window.alert('Marketplace contract not deployed to deteted network')
     }
+  }
+
+  createProduct(name, price) {
+    this.setState( {loading: true})
+    this.state.marketplace.methods.createProduct(name, price).send({ 
+      from: this.state.account
+    })
+    .once('receipt', (receipt) => {
+      this.setState( { loading: false })
+    })
   }
 
   constructor(props) {
@@ -46,6 +59,7 @@ class App extends Component {
       products: [],
       loading: true
     }
+    this.createProduct = this.createProduct.bind(this)
   }
 
   render() {
