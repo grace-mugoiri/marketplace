@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
+import Navbar from './Navbar';
 
 class App extends Component {
   async componentWillMount() {
@@ -41,7 +42,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Marketplace</h1>
+        <Navbar account={this.state.account} />
       </div>
     )
   }
