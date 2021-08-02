@@ -2,6 +2,7 @@ import { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
 import Navbar from './Navbar';
+import Marketplace from '../abis/Marketplace.json';
 
 class App extends Component {
   async componentWillMount() {
@@ -25,8 +26,16 @@ class App extends Component {
   async loadBlockchainData() {
     const web3 = window.web3
     const accounts = await web3.eth.getAccounts()
-    console.log(accounts)
+    // console.log(accounts)
     this.setState({ accounts: accounts[0]})
+    const networkId = await web3.eth.net.getId()
+    const networkData = Marketplace.networks[networkId]
+    if (networkData) {
+      const marketplace = web3.eth.Contract(Marketplace.abi, networkData.address)
+      console.log(marketplace)
+    } else {
+      window.alert('Marketplace contract not deployed to deteted network')
+    }
   }
 
   constructor(props) {
