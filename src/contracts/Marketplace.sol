@@ -24,6 +24,14 @@ contract Marketplace {
         bool purchased
     );
 
+    event ProductPurchased (
+        uint id,
+        string name,
+        uint price,
+        address payable owner,
+        bool purchased
+    );
+
     function createProduct(string memory _name, uint _price) public {
         require(bytes(_name).length > 0);
         require(_price > 0);
@@ -44,7 +52,7 @@ contract Marketplace {
         _product.owner = msg.sender;
         _product.purchased = true;
         products[_id] = _product;
-        address(_seller).transfer(msg.value)
+        address(_seller).transfer(msg.value);
 
         emit ProductPurchased(productCount, _product.name, _product.price, msg.sender, true);
     }
