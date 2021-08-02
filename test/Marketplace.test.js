@@ -1,3 +1,5 @@
+/* eslint-disable jest/valid-describe */
+/* eslint-disable no-undef */
 const { assert } = require('chai');
 
 const Marketplace = artifacts.require('./Marketplace.sol');
@@ -45,7 +47,7 @@ contract('Marketplace', ([deployer, seller, buyer]) => {
          assert.equal(event.purchased, false, 'purchased is correct')
 
          await await marketplace.createProduct('', web3.utils.toWei('1', 'Ether'), { from: seller }).should.be.rejected;
-         await await marketplace.createProduct('', web3.utils.toWei('Think Deeper', 0), { from: seller }).should.be.rejected;
+         await await marketplace.createProduct('Think Deeper', 0, { from: seller }).should.be.rejected;
      })
   });
 });
