@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
-import Navbar from './Navbar';
 import Marketplace from '../abis/Marketplace.json';
+import Navbar from './Navbar';
 import Main from './Main';
 // import { load } from 'babel-register/lib/cache';
 
